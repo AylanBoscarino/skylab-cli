@@ -7,7 +7,7 @@ export default class Init extends Command {
     {name: 'projectName', description: 'Project name', required: true},
     {name: 'options'},
   ]
-  run(): any {
+  run(): any { 
     if (!shell.which('git')) {
       shell.echo('Sorry, this script requires git')
       return shell.exit(1)
@@ -16,13 +16,13 @@ export default class Init extends Command {
     const projectName = args.projectName
     const starterPackUrl = 'https://github.com/AylanBoscarino/typed-react-native-starter-pack.git'
 
-    const cloneOutPut = shell.exec(`git clone ${starterPackUrl} ${projectName}`);
+    const cloneOutPut = shell.exec(`git clone ${starterPackUrl} ${projectName}`)
     if (cloneOutPut.code !== 0) {
       shell.echo('Error: Git commit failed')
       return shell.exit(1)
     }
 
-    shell.echo(cloneOutPut.stdout);
+    shell.echo(cloneOutPut.stdout)
 
     shell.cd(projectName)
 
@@ -31,7 +31,15 @@ export default class Init extends Command {
       return shell.exit(1)
     }
 
+    const renameOutput = shell.exec(`npx react-native-rename ${projectName}`)
+    if (renameOutput.code !== 0) {
+      shell.echo('Error: Renaming project failed')
+      return shell.exit(1)
+    }
+
+    shell.echo(renameOutput.stdout)
     shell.cd('..')
+
   }
 
 }
