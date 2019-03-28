@@ -1,6 +1,7 @@
 import { Command } from "@oclif/command";
 import { IArg } from "@oclif/parser/lib/args";
 import * as shell from "shelljs";
+import { changeProjectName } from "./textchange";
 
 export default class Init extends Command {
     public static args: IArg[] = [
@@ -8,13 +9,12 @@ export default class Init extends Command {
         { name: "options" },
     ];
     public run(): any {
-
         if (!shell.which("git")) {
             shell.echo("Sorry, this script requires git");
             return shell.exit(1);
         }
         const { args } = this.parse(Init);
-        const projectName = args.projectName;
+        const projectName = args.projectName.replace(/[^0-9a-zA-Z ]/g, "");
         const starterPackUrl = "https://github.com/AylanBoscarino/typed-react-native-starter-pack.git";
 
         const cloneOutPut = shell.exec(`git clone ${starterPackUrl} ${projectName}`);
@@ -26,19 +26,10 @@ export default class Init extends Command {
         shell.echo(cloneOutPut.stdout);
 
         shell.cd(projectName);
-
         if (shell.exec("yarn install").code !== 0) {
             shell.echo("Error: Yarn install failed");
             return shell.exit(1);
         }
-
-        const renameOutput = shell.exec(`npx react-native-rename^2.4.0 "${projectName}" -b com.${projectName}`);
-        if (renameOutput.code !== 0) {
-            shell.echo("Error: Renaming project failed");
-            return shell.exit(1);
-        }
-
-        shell.echo(renameOutput.stdout);
-        shell.cd("..");
+        shell.exec(`skylab textchange ${projectName}`);
     }
 }

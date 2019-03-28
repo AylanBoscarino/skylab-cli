@@ -1,5 +1,6 @@
 import Command from "@oclif/command";
 import { IArg } from "@oclif/parser/lib/args";
+import { cli } from "cli-ux";
 import * as fs from "fs";
 import path from "path";
 
@@ -17,13 +18,9 @@ const strings = "android/app/src/main/res/values/strings.xml";
  * @param dir2 string - the directory to wich the file shall be moved
  */
 function moveFile(file: string, dir2: string) {
-    // include the fs, path modules
-    // gets file name and adds it to dir2
-    const f = path.basename(file);
     const dest = path.resolve(dir2);
     const origin = path.resolve(file);
 
-    const local = path.dirname(dir2);
     const finalDirName = path.resolve(path.dirname(dir2));
     fs.mkdir(finalDirName, () => {
         // Do nothing
@@ -31,10 +28,10 @@ function moveFile(file: string, dir2: string) {
     fs.renameSync(origin, dest);
 }
 
-function changeProjectName(newName = ""): void {
+export function changeProjectName(newName = ""): void {
     const rawAppJson = fs.readFileSync(appJson);
     const oldName = JSON.parse(rawAppJson.toString()).name;
-    // let oldName = require(appJson)
+
     const oldMainActivity = `android/app/src/main/java/com/${oldName}/MainActivity.java`;
     const oldMainApplication = `android/app/src/main/java/com/${oldName}/MainApplication.java`;
 
@@ -64,18 +61,18 @@ function changeProjectName(newName = ""): void {
 
             const newText = code.replace(new RegExp(oldName, "g"), newName);
             fs.writeFile(fileName, newText, "utf8", (error) => {
-                if (error) { return console.error({ error }); }
+                if (error) {
+                    return console.error({ error });
+                }
             });
-            // console.log(newText);
-        }); 
+        });
     });
 }
 
 export default class TextChange extends Command {
     public static args: IArg[] = [{ name: "newName", description: "Project name", required: true }];
     public run(): any {
-        // this.log(this.config.)
         const { args } = this.parse(TextChange);
-        changeProjectName(args.newName);
+        changeProjectName(args.newName)
     }
 }
