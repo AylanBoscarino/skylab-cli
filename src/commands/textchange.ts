@@ -5,9 +5,9 @@ import path from "path";
 
 const appJson = "app.json";
 const packageJson = "package.json";
-const settingsGraddle = "android/settings.graddle";
+const settingsGraddle = "android/settings.gradle";
 const buck = "android/app/BUCK";
-const appBuildGraddle = "android/app/build.grallde";
+const appBuildGraddle = "android/app/build.gradle";
 const androidManifest = "android/app/src/main/AndroidManifest.xml";
 const strings = "android/app/src/main/res/values/strings.xml";
 
@@ -20,9 +20,15 @@ function moveFile(file: string, dir2: string) {
     // include the fs, path modules
     // gets file name and adds it to dir2
     const f = path.basename(file);
-    const dest = path.resolve(dir2, f);
+    const dest = path.resolve(dir2);
+    const origin = path.resolve(file);
 
-    fs.renameSync(file, dest);
+    const local = path.dirname(dir2);
+    const finalDirName = path.resolve(path.dirname(dir2));
+    fs.mkdir(finalDirName, () => {
+        // Do nothing
+    });
+    fs.renameSync(origin, dest);
 }
 
 function changeProjectName(newName = ""): void {
@@ -32,37 +38,37 @@ function changeProjectName(newName = ""): void {
     const oldMainActivity = `android/app/src/main/java/com/${oldName}/MainActivity.java`;
     const oldMainApplication = `android/app/src/main/java/com/${oldName}/MainApplication.java`;
 
-    const newMainActivityPath = `android/app/src/main/java/com/${newName}/MainActivity`;
+    const newMainActivityPath = `android/app/src/main/java/com/${newName}/MainActivity.java`;
     const newMainApplicationPath = `android/app/src/main/java/com/${newName}/MainApplication.java`;
 
     moveFile(oldMainActivity, newMainActivityPath);
     moveFile(oldMainApplication, newMainApplicationPath);
 
-    // const lista = [
-    //     appJson,
-    //     packageJson,
-    //     settingsGraddle,
-    //     buck,
-    //     appBuildGraddle,
-    //     androidManifest,
-    //     strings,
-    //     mainActivity,
-    //     mainApplication,
-    // ];
+    const lista = [
+        appJson,
+        packageJson,
+        settingsGraddle,
+        buck,
+        appBuildGraddle,
+        androidManifest,
+        strings,
+        newMainActivityPath,
+        newMainApplicationPath,
+    ];
 
-    // lista.map((fileName: string) => {
-    //     fs.readFile(fileName, "utf8", (error: Error, code: string) => {
-    //         if (error) {
-    //             return console.error({ error });
-    //         }
+    lista.map((fileName: string) => {
+        fs.readFile(fileName, "utf8", (error: Error, code: string) => {
+            if (error) {
+                return console.error({ error });
+            }
 
-    //         const newText = code.replace(new RegExp(oldName, "g"), newName);
-    //         // fs.writeFile(fileName, newText, 'utf8', error => {
-    //         //   if (error) return console.error({error})
-    //         // })
-    //         console.log(newText);
-    //     });
-    // });
+            const newText = code.replace(new RegExp(oldName, "g"), newName);
+            fs.writeFile(fileName, newText, "utf8", (error) => {
+                if (error) { return console.error({ error }); }
+            });
+            // console.log(newText);
+        }); 
+    });
 }
 
 export default class TextChange extends Command {
