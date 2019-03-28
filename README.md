@@ -22,7 +22,7 @@ $ npm install -g skylab-cli
 $ skylab COMMAND
 running command...
 $ skylab (-v|--version|version)
-skylab-cli/2.0.0 win32-x64 node-v10.15.0
+skylab-cli/2.0.1 win32-x64 node-v10.15.0
 $ skylab --help [COMMAND]
 USAGE
   $ skylab COMMAND
@@ -31,32 +31,9 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
-* [`skylab hello [FILE]`](#skylab-hello-file)
 * [`skylab help [COMMAND]`](#skylab-help-command)
-* [`skylab init PROJECTNAME [OPTIONS]`](#skylab-init-projectname-options)
-* [`skylab rename NEWPROJECTNAME`](#skylab-rename-newprojectname)
+* [`skylab init PROJECTNAME`](#skylab-init-projectname)
 * [`skylab textchange NEWNAME`](#skylab-textchange-newname)
-* [`skylab yell [COMMAND] [TARGET]`](#skylab-yell-command-target)
-
-## `skylab hello [FILE]`
-
-describe the command here
-
-```
-USAGE
-  $ skylab hello [FILE]
-
-OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
-
-EXAMPLE
-  $ skylab hello
-  hello world from ./src/hello.ts!
-```
-
-_See code: [src\commands\hello.ts](https://github.com/AylanBoscarino/skylab-cli/blob/v2.0.0/src\commands\hello.ts)_
 
 ## `skylab help [COMMAND]`
 
@@ -75,30 +52,17 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.1.6/src\commands\help.ts)_
 
-## `skylab init PROJECTNAME [OPTIONS]`
+## `skylab init PROJECTNAME`
 
 ```
 USAGE
-  $ skylab init PROJECTNAME [OPTIONS]
+  $ skylab init PROJECTNAME
 
 ARGUMENTS
-  PROJECTNAME  Project name
-  OPTIONS
+  PROJECTNAME  Desired project name
 ```
 
-_See code: [src\commands\init.ts](https://github.com/AylanBoscarino/skylab-cli/blob/v2.0.0/src\commands\init.ts)_
-
-## `skylab rename NEWPROJECTNAME`
-
-```
-USAGE
-  $ skylab rename NEWPROJECTNAME
-
-ARGUMENTS
-  NEWPROJECTNAME  New Project name
-```
-
-_See code: [src\commands\rename.ts](https://github.com/AylanBoscarino/skylab-cli/blob/v2.0.0/src\commands\rename.ts)_
+_See code: [src\commands\init.ts](https://github.com/AylanBoscarino/skylab-cli/blob/v2.0.1/src\commands\init.ts)_
 
 ## `skylab textchange NEWNAME`
 
@@ -107,17 +71,8 @@ USAGE
   $ skylab textchange NEWNAME
 
 ARGUMENTS
-  NEWNAME  Project name
+  NEWNAME  The project's new name
 ```
 
-_See code: [src\commands\textchange.ts](https://github.com/AylanBoscarino/skylab-cli/blob/v2.0.0/src\commands\textchange.ts)_
-
-## `skylab yell [COMMAND] [TARGET]`
-
-```
-USAGE
-  $ skylab yell [COMMAND] [TARGET]
-```
-
-_See code: [src\commands\yell.ts](https://github.com/AylanBoscarino/skylab-cli/blob/v2.0.0/src\commands\yell.ts)_
+_See code: [src\commands\textchange.ts](https://github.com/AylanBoscarino/skylab-cli/blob/v2.0.1/src\commands\textchange.ts)_
 <!-- commandsstop -->
