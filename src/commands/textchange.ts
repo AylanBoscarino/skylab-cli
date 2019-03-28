@@ -1,6 +1,5 @@
 import Command from "@oclif/command";
 import { IArg } from "@oclif/parser/lib/args";
-import { cli } from "cli-ux";
 import * as fs from "fs";
 import path from "path";
 
@@ -70,9 +69,9 @@ export function changeProjectName(newName = ""): void {
 }
 
 export default class TextChange extends Command {
-    public static args: IArg[] = [{ name: "newName", description: "Project name", required: true }];
+    public static args: IArg[] = [{ name: "newName", description: "The project's new name", required: true }];
     public run(): any {
         const { args } = this.parse(TextChange);
-        changeProjectName(args.newName)
+        changeProjectName(args.newName);
     }
 }

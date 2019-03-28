@@ -4,10 +4,7 @@ import * as shell from "shelljs";
 import { changeProjectName } from "./textchange";
 
 export default class Init extends Command {
-    public static args: IArg[] = [
-        { name: "projectName", description: "Project name", required: true },
-        { name: "options" },
-    ];
+    public static args: IArg[] = [{ name: "projectName", description: "Desired project name", required: true }];
     public run(): any {
         if (!shell.which("git")) {
             shell.echo("Sorry, this script requires git");
