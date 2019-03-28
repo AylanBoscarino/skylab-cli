@@ -54,7 +54,7 @@
       "@oclif/plugin-help"
     ]
   },
-  "repository": "AylanBoscarino/skylab-cli",
+  "repository": "https://github.com/AylanBoscarino/skylab-cli",
   "scripts": {
     "postpack": "rimraf oclif.manifest.json",
     "posttest": "tslint -p . -t stylish",
