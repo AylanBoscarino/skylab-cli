@@ -1,7 +1,7 @@
 {
   "name": "skylab-cli",
   "description": "A typescript framework for building Mobile apps",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "AylanBoscarino @AylanBoscarino",
   "bin": {
     "skylab": "./bin/run"
